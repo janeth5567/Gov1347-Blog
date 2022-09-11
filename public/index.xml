@@ -8,22 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 11 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Test Post1</title>
-      <link>http://example.org/post/2022-09-11-test-post1/</link>
+      <title>Week 1 Post</title>
+      <link>http://example.org/post/2022-09-11-week-1-post/</link>
       <pubDate>Sun, 11 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/2022-09-11-test-post1/</guid>
-      <description>Hello World!
-This is my first test post</description>
-    </item>
-    
-    <item>
-      <title>Week 1</title>
-      <link>http://example.org/post/2022-09-11-week-1/</link>
-      <pubDate>Sun, 11 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>http://example.org/post/2022-09-11-week-1/</guid>
-      <description></description>
+      <guid>http://example.org/post/2022-09-11-week-1-post/</guid>
+      <description>This is my first post</description>
     </item>
     
   </channel>

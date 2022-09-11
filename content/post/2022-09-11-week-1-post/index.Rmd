@@ -1,8 +1,10 @@
 ---
-title: Week 1
+title: Week 1 Post
 author: Janet Hernandez
 date: '2022-09-11'
 slug: []
 categories: []
 tags: []
 ---
+
+This is my first post 

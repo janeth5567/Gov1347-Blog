@@ -1,5 +1,5 @@
 ---
-title: Test Post1
+title: Week 1 Post
 author: Janet Hernandez
 date: '2022-09-11'
 slug: []
@@ -7,7 +7,4 @@ categories: []
 tags: []
 ---
 
-
-
-<p>Hello World!</p>
-<p>This is my first test post</p>
+This is my first post 
