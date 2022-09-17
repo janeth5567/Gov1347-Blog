@@ -165,26 +165,21 @@ theme_janet()
 
 
 plot_usmap(data = R_2016, regions = "states", values = "D_votemargin_st", labels = TRUE) + 
-scale_fill_gradient(low = "white", high = "blue", name = "Democratic two-party voteshare margin in 2016") + labs (title = "Republican Vote Share Margin in 2016") +
+scale_fill_gradient(low = "white", high = "blue", name = "Democratic two-party voteshare margin in 2016") + labs (title = "Democratic Vote Share Margin in 2016") +
 theme_janet()
 ```
 
 Next, I will be analyzing the vote share margins by state and congressional district in 2014.
 
 
-
-```{r echo=FALSE}
+```{r, include=TRUE, eval=FALSE}
 # plot with simplify
 districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)
 
 ```
 
-## Add a layer to your ggplot to set geographic parameters: coord_sf()
-```{r}
 
-```
-
-```{r, include=TRUE, eval=FALSE, fig.width=5, fig.height=3, out.width = '60%', fig.align='center'}
+```{r, include=TRUE, eval= TRUE, fig.width=5, fig.height=3, out.width = '60%', fig.align='center'}
 ggplot() + 
   geom_sf(data=districts_simp,aes(fill=Rep_votes_pct),
           inherit.aes=FALSE,alpha=0.9) + 
@@ -205,5 +200,6 @@ ggplot() +
 
 My initial prediction for the midterm election is that Republicans will once again regain control of the House of Representatives. Well known "swing states" will likely swing back from blue to red in this upcoming election. I believe that right now though, my opinion is quite uninformed as this is just speculation. I expect that as the weeks go on and I am able to match data to my assumptions that I may be swayed in opinion. Currently my week 1 estimate: 
 
-HOR:Republicans with a slight majority at 225 seats and Democrats with the remaining 210
+HOR: Republicans with a slight majority at 225 seats and Democrats with the remaining 210
+
 Senate: A slight advantage for the Democrats with 52 Democratic seats while the remaining 48 go to Republicans.

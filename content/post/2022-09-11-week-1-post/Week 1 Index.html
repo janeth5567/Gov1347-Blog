@@ -14,11 +14,8 @@
 <p>Also, I am using a custom theme that replicates 538 theme that I found on GitHub. The source is linked at: <a href="https://github.com/alex23lemm/theme_fivethirtyeight/blob/master/theme_fivethirtyeight.R" class="uri">https://github.com/alex23lemm/theme_fivethirtyeight/blob/master/theme_fivethirtyeight.R</a></p>
 <p><img src="/post/2022-09-11-week-1-post/Week%201%20Index_files/figure-html/unnamed-chunk-4-1.png" width="672" /><img src="/post/2022-09-11-week-1-post/Week%201%20Index_files/figure-html/unnamed-chunk-4-2.png" width="672" /></p>
 <p>Next, I will be analyzing the vote share margins by state and congressional district in 2014.</p>
-<pre><code>## Registered S3 method overwritten by &#39;geojsonlint&#39;:
-##   method         from 
-##   print.location dplyr</code></pre>
-<div id="add-a-layer-to-your-ggplot-to-set-geographic-parameters-coord_sf" class="section level2">
-<h2>Add a layer to your ggplot to set geographic parameters: coord_sf()</h2>
+<pre class="r"><code># plot with simplify
+districts_simp &lt;- rmapshaper::ms_simplify(cd114, keep = 0.01)</code></pre>
 <pre class="r"><code>ggplot() + 
   geom_sf(data=districts_simp,aes(fill=Rep_votes_pct),
           inherit.aes=FALSE,alpha=0.9) + 
@@ -33,6 +30,5 @@
         axis.ticks.y=element_blank())</code></pre>
 <p><strong>Initial Prediction </strong></p>
 <p>My initial prediction for the midterm election is that Republicans will once again regain control of the House of Representatives. Well known “swing states” will likely swing back from blue to red in this upcoming election. I believe that right now though, my opinion is quite uninformed as this is just speculation. I expect that as the weeks go on and I am able to match data to my assumptions that I may be swayed in opinion. Currently my week 1 estimate:</p>
-<p>HOR:Republicans with a slight majority at 225 seats and Democrats with the remaining 210
-Senate: A slight advantage for the Democrats with 52 Democratic seats while the remaining 48 go to Republicans.</p>
-</div>
+<p>HOR: Republicans with a slight majority at 225 seats and Democrats with the remaining 210</p>
+<p>Senate: A slight advantage for the Democrats with 52 Democratic seats while the remaining 48 go to Republicans.</p>
