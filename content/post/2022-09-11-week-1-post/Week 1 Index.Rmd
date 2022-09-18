@@ -158,7 +158,7 @@ unique(states_map$abbr)
 
 ```
 
-```{r echo = FALSE}
+```{r}
 
 plot_usmap(data = R_2016, regions = "states", values = "R_votemargin_st", labels = TRUE) +
 scale_fill_gradient(low = "white", high = "red", name = "GOP two-party voteshare margin") + labs (title = "Republican Vote Share Margin in 2016") +

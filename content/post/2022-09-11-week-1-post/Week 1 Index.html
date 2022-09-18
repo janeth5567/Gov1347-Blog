@@ -1,6 +1,5 @@
 
 
-<p><strong>Blog Post Due 9/15/22 </strong></p>
 <p><em>This is my first weekly election blog posting for an ongoing assignment for the class Election Analytics at Harvard College with Professor Ryan Enos. Enjoy! :)</em></p>
 <p>I will be using the visualization customization extension for this blog post and will use the resulting data to make a prediction about the upcoming 2022 midterm election.</p>
 <ol style="list-style-type: decimal">
@@ -16,18 +15,6 @@
 <p>Next, I will be analyzing the vote share margins by state and congressional district in 2014.</p>
 <pre class="r"><code># plot with simplify
 districts_simp &lt;- rmapshaper::ms_simplify(cd114, keep = 0.01)</code></pre>
-<pre class="r"><code>ggplot() + 
-  geom_sf(data=districts_simp,aes(fill=Rep_votes_pct),
-          inherit.aes=FALSE,alpha=0.9) + 
-  scale_fill_gradient(low = &quot;white&quot;, high = &quot;black&quot;, limits=c(0,90)) +
-  coord_sf(xlim = c(-172.27, -66.57), ylim = c(18.55, 71.23), expand = FALSE) +  
-  theme_void() +
-  theme(axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank())</code></pre>
 <p><strong>Initial Prediction </strong></p>
 <p>My initial prediction for the midterm election is that Republicans will once again regain control of the House of Representatives. Well known “swing states” will likely swing back from blue to red in this upcoming election. I believe that right now though, my opinion is quite uninformed as this is just speculation. I expect that as the weeks go on and I am able to match data to my assumptions that I may be swayed in opinion. Currently my week 1 estimate:</p>
 <p>HOR: Republicans with a slight majority at 225 seats and Democrats with the remaining 210</p>
