@@ -157,7 +157,15 @@ National_prediction <- data.frame()
 
 ```
 
+
+## Unemployment and Elections
+
+In this more complete model, we can see that our model is firstly pretty mediocre. The standard errors are relatively high and our p values are higher than 0.05 (not statistically significant) as well as a pretty mediocre R^2 value indicates (R^2 explains how much variance is explained by our model) that there may not be a super intense correlation between economic factors and the incumbents popular vote percent in elections. 
+
+One factor to note though is that unemployment has a relatively high coefficient when compared to the rest of our predictors. This makes sense to me, as [research](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/10.1017/s0022381614000437#metadata_info_tab_contents) has shown that most voters think of "the economy" as how long domestic unemployment is rather than GDP.
+
 ## Predicted  v. Actual Incumbent Popular Vote Percent Based on This Model 
+
 
 ```{r, echo=FALSE}
 data_mod <- data.frame(Predicted = predict(fullmodel, new_data = National_prediction),  # Create data for ggplot2 
@@ -177,11 +185,7 @@ ggplot(data_mod,
 <br>
 Even with our new predictors, not a great fit to our actual data!
 
-## Unemployment and Elections
-
-In this more complete model, we can see that our model is firstly pretty mediocre. The standard errors are relatively high and our p values are higher than 0.05 (not statistically significant) as well as a pretty mediocre R^2 value indicates (R^2 explains how much variance is explained by our model) that there may not be a super intense correlation between economic factors and the incumbents popular vote percent in elections. 
-
-One factor to note though is that unemployment has a relatively high coefficient when compared to the rest of our predictors. This makes sense to me, as [research](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/10.1017/s0022381614000437#metadata_info_tab_contents) has shown that most voters think of "the economy" as how long domestic unemployment is rather than GDP. 
+ 
 
 # Local Economy Based Model
 
