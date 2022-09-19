@@ -328,8 +328,15 @@ Even with our new predictors, not a great fit to our actual data!</p>
 <h1>Local Economy Based Model</h1>
 <p>In this model, I will be looking at how local unemployment in specific affect the Republican vote margin. I am choosing to look at specifically how republicans fare due to data constraints as well as knowing that Republican voters rank economy as a higher priority than democratic voters. It will be interesting to see how a “strong economy” can either greatly help or hurt republican candidates in local elections.</p>
 <p>To simplify my analysis, I will be focusing on the month before an election for the state unemployment data. My reasoning here is that research has shown that most voters think very short term. Most Americans will judge their voting decision in the immediate past, therefore, I believe it is reasonable to use the month of October before an election in November as a baseline.</p>
+<pre><code>## 
+## Call:
+## lm(formula = RepVotesMajorPercent ~ Unemployed_prct, data = local_data)
+## 
+## Coefficients:
+##     (Intercept)  Unemployed_prct  
+##         47.3014          -0.4299</code></pre>
 </div>
 <div id="what-does-this-mean-for-the-upcoming-midterm-election" class="section level1">
 <h1>What Does This Mean for the Upcoming Midterm Election?</h1>
-<p>Basing our predictions just on the economy will be a long shot if we are concerned about accurate and viable predictions. The economy seems to be a weak predictor of election outcomes both on a national and local level. Right now, I don’t think I am changing my predictions from last week because I haven’t found that any of my models are good enough to change my predictions or sway my opinion on key political understandings.</p>
+<p>Basing our predictions just on the economy will be a long shot if we are concerned about accurate and viable predictions. The economy seems to be a weak predictor of election outcomes both on a national and local level. This is likely due to wide margins and lots of outliers due to the recent pandemic as well as extreme economic downturns such as 2008. Right now, I don’t think I am changing my predictions from last week because I haven’t found that any of my models are good enough to change my predictions or sway my opinion on key political understandings.</p>
 </div>

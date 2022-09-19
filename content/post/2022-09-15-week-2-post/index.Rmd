@@ -33,6 +33,8 @@ RDI_monthly <- read_csv("~/Desktop/Gov1347 Data/Section data 2/RDI_monthly.csv")
 
 voteseatshare_2020 <- read.csv("~/Desktop/Syllabi for Fall 22/election analytics/Gov1347 Data/house nationwide vote and seat share by party 1948-2020.csv")
 
+house_party_vote_share_by_district_1948_2020 <- read_csv("~/Desktop/Syllabi for Fall 22/election analytics/Gov1347 Data/house party vote share by district 1948-2020.csv")
+
 # I already loaded in R_2016 which is popvote by state and some others from lab and last section 
 ```
 
@@ -194,19 +196,34 @@ In this model, I will be looking at how local unemployment in specific affect th
 To simplify my analysis, I will be focusing on the month before an election for the state unemployment data. My reasoning here is that research has shown that most voters think very short term. Most Americans will judge their voting decision in the immediate past, therefore, I believe it is reasonable to use the month of October before an election in November as a baseline.
 
 
-```{r local, include=FALSE}
+```{r local, echo=FALSE}
 #Get local data by state for unemployment in October for each state
+    #unemployment_local  Already is filtered for October
+    # Get R_vote_margin for District Races 
+    # combine the two datasets into one to compare and then graph
+
+unemployment_local <- unemployment_state_monthly %>% 
+  filter(Month == 10)
+
+popvote_state <-house_party_vote_share_by_district_1948_2020
+
+unemployment_local <- unemployment_state_monthly %>%
+  rename(State = 'State and area')
+
+local_data <- merge(unemployment_local, popvote_state, by = "State")
+
+local_model <- lm(RepVotesMajorPercent ~ Unemployed_prct, data = local_data)
+
+local_model
+
 
 
 
 ```
 
 
-
-
-
 # What Does This Mean for the Upcoming Midterm Election? 
 
-Basing our predictions just on the economy will be a long shot if we are concerned about accurate and viable predictions. The economy seems to be a weak predictor of election outcomes both on a national and local level. Right now, I don't think I am changing my predictions from last week because I haven't found that any of my models are good enough to change my predictions or sway my opinion on key political understandings. 
+Basing our predictions just on the economy will be a long shot if we are concerned about accurate and viable predictions. The economy seems to be a weak predictor of election outcomes both on a national and local level. This is likely due to wide margins and lots of outliers due to the recent pandemic as well as extreme economic downturns such as 2008. Right now, I don't think I am changing my predictions from last week because I haven't found that any of my models are good enough to change my predictions or sway my opinion on key political understandings. 
 
 
