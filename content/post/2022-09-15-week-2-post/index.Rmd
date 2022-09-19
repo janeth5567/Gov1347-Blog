@@ -6,7 +6,7 @@ tags:
   - Economy
   - Prediction
   - Unemployment
-excerpt: This weeks blog post will focus on using the economy as a variable to predictive modeling for the upcoming election using past data such as the unemployment rate, GDP for each quarter, RDI, etc.
+summary: This weeks blog post will focus on using the economy as a variable to predictive modeling for the upcoming election using past data such as the unemployment rate, GDP for each quarter, RDI, etc.
 ---
 
 ```{r library, include=FALSE}
