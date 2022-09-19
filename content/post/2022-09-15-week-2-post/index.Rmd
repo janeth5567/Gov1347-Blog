@@ -2,6 +2,11 @@
 title: 'Week 2: The Economy and Elections'
 author: Janet Hernandez
 date: '2022-09-17'
+tags:
+  - Economy
+  - Prediction
+  - Unemployment
+excerpt: This weeks blog post will focus on using the economy as a variable to predictive modeling for the upcoming election using past data such as the unemployment rate, GDP for each quarter, RDI, etc.
 ---
 
 ```{r library, include=FALSE}
@@ -86,30 +91,118 @@ GDP_model <- lm(H_incumbent_party_majorvote_pct ~ GDP_growth_qt, data = economy_
 coef(GDP_model)
 summ(GDP_model)
 ```
+<br> 
+
+
 
 As we can see, just a linear regression with GDP growth is not a great indicator of any variance we see in our data set. Our adjusted R^2 value is only -0.03, meaning only about 3% of the variance in our data set is explained by our model. We also have a remarkably low slope of -0.000312 which equates to an extremely small negative change of 0.03% in popular vote share of an incumbent for every change of 1 in our GDP growth.
 
 
 <br> 
+```{r, include=FALSE}
+theme_janet <- function(base_size = 13, base_family = "") {
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      
+      # Base elements which are not used directly but inherited by others
+      line =              element_line(colour = '#DADADA', size = 0.75, 
+                                       linetype = 1, lineend = "butt"),
+      rect =              element_rect(fill = "#F0F0F0", colour = "#F0F0F0", 
+                                       size = 0.5, linetype = 1),
+      text =              element_text(family = base_family, face = "plain",
+                                       colour = "#656565", size = base_size,
+                                       hjust = 0.5, vjust = 0.5, angle = 0, 
+                                       lineheight = 0.9),
+      
+      # Modified inheritance structure of text element
+      plot.title =        element_text(size = rel(1.5), family = '' , 
+                                       face = 'bold', hjust = -0.05, 
+                                       vjust = 1.5, colour = '#3B3B3B'),
+      axis.title.x =      element_blank(),
+      axis.title.y =      element_blank(),
+      axis.text =         element_text(),
+      
+      # Modified inheritance structure of line element
+      axis.ticks =        element_line(),
+      panel.grid.major =  element_line(),
+      panel.grid.minor =  element_blank(),
+      
+      # Modified inheritance structure of rect element
+      plot.background =   element_rect(),
+      panel.background =  element_rect(),
+      legend.key =        element_rect(colour = '#DADADA'),
+      
+      # Modifiying legend.position
+      legend.position = 'none',
+      
+      complete = TRUE
+    )
+}
+```
 
 # National Model including GDP, RDI, and National Unemployment ##
 
 My next model will hopefully give us a more comprehensive picture of what the relationship between the economy and an incumbent party's share of the popular vote given any election year. I will then also use this model and our state model to make a prediction for the 2022 Midterm Election. 
 
-```{r}
-fullmodel = lm(H_incumbent_party_majorvote_pct ~ 1+ GDP_growth_qt + DSPIC_change_qt + unrate_qt_total , data = economy_model_data)
+```{r, echo  = FALSE}
+fullmodel = lm(H_incumbent_party_majorvote_pct ~ 1+ GDP_growth_qt + DSPIC_change_qt + UNRATE , data = economy_model_data)
 
 fullmodel
 
 summ(fullmodel)
 
+National_prediction <- data.frame()
+
+
+
 ```
 
+## Predicted  v. Actual Incumbent Popular Vote Percent Based on This Model 
+
+```{r, echo=FALSE}
+data_mod <- data.frame(Predicted = predict(fullmodel, new_data = National_prediction),  # Create data for ggplot2 
+                       Observed = economy_model_data$H_incumbent_party_majorvote_pct)
+
+ggplot(data_mod,                                  
+       aes(x = Predicted,
+           y = Observed)) +
+  geom_point() +
+  geom_abline(intercept = 0,
+              slope = 1,
+              color = "red",
+              size = 2) + theme_classic()
+```
+
+
+<br>
+Even with our new predictors, not a great fit to our actual data!
 
 ## Unemployment and Elections
 
 In this more complete model, we can see that our model is firstly pretty mediocre. The standard errors are relatively high and our p values are higher than 0.05 (not statistically significant) as well as a pretty mediocre R^2 value indicates (R^2 explains how much variance is explained by our model) that there may not be a super intense correlation between economic factors and the incumbents popular vote percent in elections. 
 
-One factor to note though is that unemployment has a relatively high coefficient when compared to the rest of our predictors. 
+One factor to note though is that unemployment has a relatively high coefficient when compared to the rest of our predictors. This makes sense to me, as [research](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/10.1017/s0022381614000437#metadata_info_tab_contents) has shown that most voters think of "the economy" as how long domestic unemployment is rather than GDP. 
+
+# Local Economy Based Model
+
+In this model, I will be looking at how local unemployment in specific affect the Republican vote margin. I am choosing to look at specifically how republicans fare due to data constraints as well as knowing that Republican voters rank economy as a higher priority than democratic voters. It will be interesting to see how a "strong economy" can either greatly help or hurt republican candidates in local elections.
+
+To simplify my analysis, I will be focusing on the month before an election for the state unemployment data. My reasoning here is that research has shown that most voters think very short term. Most Americans will judge their voting decision in the immediate past, therefore, I believe it is reasonable to use the month of October before an election in November as a baseline.
+
+
+```{r local, include=FALSE}
+#Get local data by state for unemployment in October for each state
+
+
+
+```
+
+
+
+
+
+# What Does This Mean for the Upcoming Midterm Election? 
+
+Basing our predictions just on the economy will be a long shot if we are concerned about accurate and viable predictions. The economy seems to be a weak predictor of election outcomes both on a national and local level. Right now, I don't think I am changing my predictions from last week because I haven't found that any of my models are good enough to change my predictions or sway my opinion on key political understandings. 
 
 

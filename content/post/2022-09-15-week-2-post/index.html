@@ -2,6 +2,11 @@
 title: 'Week 2: The Economy and Elections'
 author: Janet Hernandez
 date: '2022-09-17'
+tags:
+  - Economy
+  - Prediction
+  - Unemployment
+excerpt: This weeks blog post will focus on using the economy as a variable to predictive modeling for the upcoming election using past data such as the unemployment rate, GDP for each quarter, RDI, etc.
 ---
 
 
@@ -139,24 +144,21 @@ GDP_growth_qt
 </tr>
 </tfoot>
 </table>
+<p><br></p>
 <p>As we can see, just a linear regression with GDP growth is not a great indicator of any variance we see in our data set. Our adjusted R^2 value is only -0.03, meaning only about 3% of the variance in our data set is explained by our model. We also have a remarkably low slope of -0.000312 which equates to an extremely small negative change of 0.03% in popular vote share of an incumbent for every change of 1 in our GDP growth.</p>
 <p><br></p>
 </div>
 <div id="national-model-including-gdp-rdi-and-national-unemployment" class="section level1">
 <h1>National Model including GDP, RDI, and National Unemployment</h1>
 <p>My next model will hopefully give us a more comprehensive picture of what the relationship between the economy and an incumbent party’s share of the popular vote given any election year. I will then also use this model and our state model to make a prediction for the 2022 Midterm Election.</p>
-<pre class="r"><code>fullmodel = lm(H_incumbent_party_majorvote_pct ~ 1+ GDP_growth_qt + DSPIC_change_qt + unrate_qt_total , data = economy_model_data)
-
-fullmodel</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = H_incumbent_party_majorvote_pct ~ 1 + GDP_growth_qt + 
-##     DSPIC_change_qt + unrate_qt_total, data = economy_model_data)
+##     DSPIC_change_qt + UNRATE, data = economy_model_data)
 ## 
 ## Coefficients:
-##     (Intercept)    GDP_growth_qt  DSPIC_change_qt  unrate_qt_total  
-##       51.922293        -0.009169        -0.004790         0.102310</code></pre>
-<pre class="r"><code>summ(fullmodel)</code></pre>
+##     (Intercept)    GDP_growth_qt  DSPIC_change_qt           UNRATE  
+##       52.190970        -0.009206        -0.004835         0.263637</code></pre>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr>
@@ -192,7 +194,7 @@ OLS linear regression
 F(3,27)
 </td>
 <td style="text-align:right;">
-1.98
+1.92
 </td>
 </tr>
 <tr>
@@ -208,7 +210,7 @@ R²
 Adj. R²
 </td>
 <td style="text-align:right;">
-0.09
+0.08
 </td>
 </tr>
 </tbody>
@@ -238,13 +240,13 @@ p
 (Intercept)
 </td>
 <td style="text-align:right;">
-51.92
+52.19
 </td>
 <td style="text-align:right;">
-2.50
+2.45
 </td>
 <td style="text-align:right;">
-20.75
+21.30
 </td>
 <td style="text-align:right;">
 0.00
@@ -278,7 +280,7 @@ DSPIC_change_qt
 0.00
 </td>
 <td style="text-align:right;">
--2.40
+-2.38
 </td>
 <td style="text-align:right;">
 0.02
@@ -286,19 +288,19 @@ DSPIC_change_qt
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">
-unrate_qt_total
+UNRATE
 </td>
 <td style="text-align:right;">
-0.10
+0.26
 </td>
 <td style="text-align:right;">
-0.13
+0.39
 </td>
 <td style="text-align:right;">
-0.77
+0.67
 </td>
 <td style="text-align:right;">
-0.45
+0.51
 </td>
 </tr>
 </tbody>
@@ -310,9 +312,24 @@ unrate_qt_total
 </tr>
 </tfoot>
 </table>
+<div id="predicted-v.-actual-incumbent-popular-vote-percent-based-on-this-model" class="section level2">
+<h2>Predicted v. Actual Incumbent Popular Vote Percent Based on This Model</h2>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><br>
+Even with our new predictors, not a great fit to our actual data!</p>
+</div>
 <div id="unemployment-and-elections" class="section level2">
 <h2>Unemployment and Elections</h2>
 <p>In this more complete model, we can see that our model is firstly pretty mediocre. The standard errors are relatively high and our p values are higher than 0.05 (not statistically significant) as well as a pretty mediocre R^2 value indicates (R^2 explains how much variance is explained by our model) that there may not be a super intense correlation between economic factors and the incumbents popular vote percent in elections.</p>
-<p>One factor to note though is that unemployment has a relatively high coefficient when compared to the rest of our predictors.</p>
+<p>One factor to note though is that unemployment has a relatively high coefficient when compared to the rest of our predictors. This makes sense to me, as <a href="https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/10.1017/s0022381614000437#metadata_info_tab_contents">research</a> has shown that most voters think of “the economy” as how long domestic unemployment is rather than GDP.</p>
 </div>
+</div>
+<div id="local-economy-based-model" class="section level1">
+<h1>Local Economy Based Model</h1>
+<p>In this model, I will be looking at how local unemployment in specific affect the Republican vote margin. I am choosing to look at specifically how republicans fare due to data constraints as well as knowing that Republican voters rank economy as a higher priority than democratic voters. It will be interesting to see how a “strong economy” can either greatly help or hurt republican candidates in local elections.</p>
+<p>To simplify my analysis, I will be focusing on the month before an election for the state unemployment data. My reasoning here is that research has shown that most voters think very short term. Most Americans will judge their voting decision in the immediate past, therefore, I believe it is reasonable to use the month of October before an election in November as a baseline.</p>
+</div>
+<div id="what-does-this-mean-for-the-upcoming-midterm-election" class="section level1">
+<h1>What Does This Mean for the Upcoming Midterm Election?</h1>
+<p>Basing our predictions just on the economy will be a long shot if we are concerned about accurate and viable predictions. The economy seems to be a weak predictor of election outcomes both on a national and local level. Right now, I don’t think I am changing my predictions from last week because I haven’t found that any of my models are good enough to change my predictions or sway my opinion on key political understandings.</p>
 </div>

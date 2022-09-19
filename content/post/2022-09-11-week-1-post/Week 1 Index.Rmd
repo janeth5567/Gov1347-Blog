@@ -6,7 +6,6 @@ slug: []
 categories: []
 tags: []
 ---
-**Blog Post Due 9/15/22 **
 
 *This is my first weekly election blog posting for an ongoing assignment for the class Election Analytics at Harvard College with Professor Ryan Enos. Enjoy! :)*
 
@@ -158,7 +157,7 @@ unique(states_map$abbr)
 
 ```
 
-```{r}
+```{r, echo= FALSE}
 
 plot_usmap(data = R_2016, regions = "states", values = "R_votemargin_st", labels = TRUE) +
 scale_fill_gradient(low = "white", high = "red", name = "GOP two-party voteshare margin") + labs (title = "Republican Vote Share Margin in 2016") +
@@ -168,6 +167,7 @@ theme_janet()
 plot_usmap(data = R_2016, regions = "states", values = "D_votemargin_st", labels = TRUE) + 
 scale_fill_gradient(low = "white", high = "blue", name = "Democratic two-party voteshare margin in 2016") + labs (title = "Democratic Vote Share Margin in 2016") +
 theme_janet()
+
 ```
 
 Next, I will be analyzing the vote share margins by state and congressional district in 2014.
@@ -179,22 +179,6 @@ districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)
 
 ```
 
-
-```{r, include=TRUE, eval= TRUE, fig.width=5, fig.height=3, out.width = '60%', fig.align='center'}
-ggplot() + 
-  geom_sf(data=districts_simp,aes(fill=Rep_votes_pct),
-          inherit.aes=FALSE,alpha=0.9) + 
-  scale_fill_gradient(low = "white", high = "black", limits=c(0,90)) +
-  coord_sf(xlim = c(-172.27, -66.57), ylim = c(18.55, 71.23), expand = FALSE) +  
-  theme_void() +
-  theme(axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-        axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank())
-
-```
 
 
 **Initial Prediction **
