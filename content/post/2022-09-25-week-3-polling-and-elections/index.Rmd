@@ -1,14 +1,90 @@
 ---
 title: 'Week 3: Polling and Elections'
-author: Janet Hernandez
-date: '2022-09-25'
+author: "Janet Hernandez"
+date: "2022-09-25"
 slug: []
 categories: []
-tags:
-  - Prediction
+tags: Prediction
 ---
 ```{r}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(scales)
+library(plotly)
+library(rjson)
+library(jtools)
+library(htmlwidgets)
+library(reactable)
+```
+
+```{r, include=FALSE}
+CPI_monthly <- read.csv("~/Desktop/Gov1347 Data/Section data 2/CPI_monthly.csv")
+economy <- read.csv("~/Desktop/Gov1347 Data/Section data 2/GDP_quarterly.csv")
+unemployment_state_monthly <- read_csv("~/Desktop/Gov1347 Data/Section data 2/unemployment_state_monthly.csv")
+popvote_df <- read_csv("~/Desktop/Gov1347 Data/Section data 2/house_popvote_seats.csv")
+unemployment_national_quarterly_final <- read_csv("~/Desktop/Gov1347 Data/Section data 2/unemployment_national_quarterly_final.csv")
+RDI_quarterly <- read_csv("~/Desktop/Gov1347 Data/Section data 2/RDI_quarterly.csv")
+RDI_monthly <- read_csv("~/Desktop/Gov1347 Data/Section data 2/RDI_monthly.csv")
+voteseatshare_2020 <- read.csv("~/Desktop/Syllabi for Fall 22/election analytics/Gov1347 Data/house nationwide vote and seat share by party 1948-2020.csv")
+house_party_vote_share_by_district_1948_2020 <- read_csv("~/Desktop/Syllabi for Fall 22/election analytics/Gov1347 Data/house party vote share by district 1948-2020.csv")
+economy_q2 <- economy %>% 
+  filter(quarter_yr == 2) 
+
+RDI_q2 <- RDI_quarterly %>%
+  filter(quarter_yr == 2)
+
+unemployment_q2 <- unemployment_national_quarterly_final %>%
+  filter(quarter_yr == 2)
+
+economy_model_data <- popvote_df %>% 
+  inner_join(economy_q2, by = "year")
+
+economy_model_data <-economy_model_data %>% 
+  inner_join(RDI_q2, by = "year")
+
+economy_model_data <-economy_model_data %>% 
+  inner_join(unemployment_q2, by = "year")
+
+library(grid)
+
+theme_janet <- function(base_size = 13, base_family = "") {
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      
+      # Base elements which are not used directly but inherited by others
+      line =              element_line(colour = '#DADADA', size = 0.75, 
+                                       linetype = 1, lineend = "butt"),
+      rect =              element_rect(fill = "#F0F0F0", colour = "#F0F0F0", 
+                                       size = 0.5, linetype = 1),
+      text =              element_text(family = base_family, face = "plain",
+                                       colour = "#656565", size = base_size,
+                                       hjust = 0.5, vjust = 0.5, angle = 0, 
+                                       lineheight = 0.9),
+      
+      # Modified inheritance structure of text element
+      plot.title =        element_text(size = rel(1.5), family = '' , 
+                                       face = 'bold', hjust = -0.05, 
+                                       vjust = 1.5, colour = '#3B3B3B'),
+      axis.title.x =      element_blank(),
+      axis.title.y =      element_blank(),
+      axis.text =         element_text(),
+      
+      # Modified inheritance structure of line element
+      axis.ticks =        element_line(),
+      panel.grid.major =  element_line(),
+      panel.grid.minor =  element_blank(),
+      
+      # Modified inheritance structure of rect element
+      plot.background =   element_rect(),
+      panel.background =  element_rect(),
+      legend.key =        element_rect(colour = '#DADADA'),
+      
+      # Modifiying legend.position
+      legend.position = 'none',
+      
+      complete = TRUE
+    )
+}
 ```
 
 **Building Our Predictive Model So Far**
