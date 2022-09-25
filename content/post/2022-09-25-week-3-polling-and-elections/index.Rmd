@@ -1,14 +1,10 @@
 ---
 title: 'Week 3: Polling and Elections'
 author: Janet Hernandez
-date: '2022-09-22'
-categories:
-  - Polling
-  - Elections
-  - Approval
-tags:
-  - Prediction
-summary: This week, I will try to use polling data to add onto my predictive model.
+date: '2022-09-25'
+slug: []
+categories: []
+tags: []
 ---
 
 **Building Our Predictive Model So Far**
