@@ -12,7 +12,7 @@ summary: This weeks blog post will focus on incorporating polling data to add in
 
 <div id="my-predictive-model-so-far" class="section level1">
 <h1>My Predictive Model So Far</h1>
-<p>To clarify from my previous posts where I didn’t clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends.However, the residual standard error is 28.94 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values.</p>
+<p>To clarify from my previous posts where I didn’t clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends. However, the residual standard error is 29.18 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <tbody>
 <tr>
@@ -166,5 +166,14 @@ UNRATE
 </tr>
 </tfoot>
 </table>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/plot%20for%20prediction-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/plot%20for%20prediction-1.png" width="672" />
+<strong>While the model is not perfect, I am impressed that the 2020 election was almost perfectly predicted as well as 1972 and 1968. However, the most recent election years in the past two decades my model has primarily been over predicting Dem seats. This is clearly seen in years like 2016, 2014, and 2012.</strong></p>
+<pre class="r"><code>predict(PredictiveModel, data.frame(GDP_growth_qt = 496.200, DSPIC_change_qt = -929.06
+, UNRATE = 3.4))</code></pre>
+<pre><code>##        1 
+## 254.6798</code></pre>
+<p>My current model’s prediction <em>without</em> polling information is that for the upcoming election, the Dems will win approximately 255 seats in Congress. One thing to note is that I used last quarter’s inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.</p>
+</div>
+<div id="introduction-to-polling" class="section level1">
+<h1>Introduction to Polling</h1>
 </div>

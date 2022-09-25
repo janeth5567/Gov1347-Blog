@@ -16,6 +16,8 @@ library(rjson)
 library(jtools)
 library(htmlwidgets)
 library(reactable)
+library(ggplot2)
+library(ggrepel)
 ```
 
 ```{r, include=FALSE}
@@ -66,8 +68,8 @@ theme_janet <- function(base_size = 13, base_family = "") {
       plot.title =        element_text(size = rel(1.5), family = '' , 
                                        face = 'bold', hjust = -0.05, 
                                        vjust = 1.5, colour = '#3B3B3B'),
-      axis.title.x =      element_blank(),
-      axis.title.y =      element_blank(),
+      axis.title.x =      element_text(),
+      axis.title.y =      element_text(),
       axis.text =         element_text(),
       
       # Modified inheritance structure of line element
@@ -90,13 +92,15 @@ theme_janet <- function(base_size = 13, base_family = "") {
 
 # My Predictive Model So Far #
 
-To clarify from my previous posts where I didn't clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends.However, the residual standard error is 28.94 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values. 
+To clarify from my previous posts where I didn't clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends. However, the residual standard error is 29.18 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values. 
+
 
 ```{r, echo=FALSE}
 
 PredictiveModel <- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE, data = economy_model_data)
 
 summ(PredictiveModel)
+
 
 National_prediction <- data.frame()
 
@@ -109,12 +113,25 @@ data_mod <- data.frame(Predicted = predict(PredictiveModel, new_data = National_
 ```{r plot for prediction, echo= FALSE}
 ggplot(data_mod,                                  
        aes(x = Predicted,
-           y = Observed)) +
+           y = Observed))  +
   geom_point() + 
   geom_abline(intercept = 0,
               slope = 1,
               color = "red",
               size = 2) +
- geom_label(label= economy_model_data$year, nudge_y = 5) + theme_janet() + ggtitle("Predictive Model 1:\nPredicted v. Observed Democrat Seats")
+ geom_label_repel(label= economy_model_data$year, nudge_y = 6) + theme_janet() + ggtitle("Predictive Model 1:\nPredicted v. Observed Democrat Seats") 
 ```
+**While the model is not perfect, I am impressed that the 2020 election was almost perfectly predicted as well as 1972 and 1968. However, the most recent election years in the past two decades my model has primarily been over predicting Dem seats. This is clearly seen in years like 2016, 2014, and 2012.**
+
+```{r, actual prediction for 2022 election}
+
+predict(PredictiveModel, data.frame(GDP_growth_qt = 496.200, DSPIC_change_qt = -929.06
+, UNRATE = 3.4))
+
+```
+
+My current model's prediction *without* polling information is that for the upcoming election, the Dems will win approximately 255 seats in Congress. One thing to note is that I used last quarter's inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.
+
+# Introduction to Polling #
+
 
