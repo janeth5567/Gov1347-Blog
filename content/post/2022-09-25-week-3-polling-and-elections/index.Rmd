@@ -4,8 +4,12 @@ author: Janet Hernandez
 date: '2022-09-25'
 slug: []
 categories: []
-tags: []
+tags:
+  - Prediction
 ---
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 **Building Our Predictive Model So Far**
 
@@ -36,4 +40,3 @@ ggplot(data_mod,
 
 
 ```
-
