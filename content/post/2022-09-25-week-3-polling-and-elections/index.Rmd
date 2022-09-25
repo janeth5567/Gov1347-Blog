@@ -5,8 +5,9 @@ date: "2022-09-25"
 slug: []
 categories: []
 tags: Prediction
+summary: This weeks blog post will focus on incorporating polling data to add into my existing predictive model that already includes economy variables to test to see how our predictions improve.
 ---
-```{r}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(scales)
@@ -87,23 +88,25 @@ theme_janet <- function(base_size = 13, base_family = "") {
 }
 ```
 
-**Building Our Predictive Model So Far**
+# My Predictive Model So Far #
 
 To clarify from my previous posts where I didn't clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends.However, the residual standard error is 28.94 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values. 
 
-```{r}
+```{r, echo=FALSE}
 
 PredictiveModel <- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE, data = economy_model_data)
 
-coefficients(PredictiveModel)
-
-summary(PredictiveModel)
+summ(PredictiveModel)
 
 National_prediction <- data.frame()
 
 data_mod <- data.frame(Predicted = predict(PredictiveModel, new_data = National_prediction),  # Create data for ggplot2 
                        Observed = economy_model_data$D_seats)
 
+
+```
+
+```{r plot for prediction, echo= FALSE}
 ggplot(data_mod,                                  
        aes(x = Predicted,
            y = Observed)) +
@@ -113,6 +116,5 @@ ggplot(data_mod,
               color = "red",
               size = 2) +
  geom_label(label= economy_model_data$year, nudge_y = 5) + theme_janet() + ggtitle("Predictive Model 1:\nPredicted v. Observed Democrat Seats")
-
-
 ```
+

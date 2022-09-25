@@ -5,91 +5,166 @@ date: "2022-09-25"
 slug: []
 categories: []
 tags: Prediction
+summary: This weeks blog post will focus on incorporating polling data to add into my existing predictive model that already includes economy variables to test to see how our predictions improve.
 ---
 
 
 
-<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-## ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
-## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-## ✔ readr   2.1.2      ✔ forcats 0.5.2 
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>library(scales)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;scales&#39;
-## 
-## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     discard
-## 
-## The following object is masked from &#39;package:readr&#39;:
-## 
-##     col_factor</code></pre>
-<pre class="r"><code>library(plotly)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;plotly&#39;
-## 
-## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     last_plot
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter
-## 
-## The following object is masked from &#39;package:graphics&#39;:
-## 
-##     layout</code></pre>
-<pre class="r"><code>library(rjson)
-library(jtools)
-library(htmlwidgets)
-library(reactable)</code></pre>
-<p><strong>Building Our Predictive Model So Far</strong></p>
+<div id="my-predictive-model-so-far" class="section level1">
+<h1>My Predictive Model So Far</h1>
 <p>To clarify from my previous posts where I didn’t clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends.However, the residual standard error is 28.94 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values.</p>
-<pre class="r"><code>PredictiveModel &lt;- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE, data = economy_model_data)
-
-coefficients(PredictiveModel)</code></pre>
-<pre><code>##     (Intercept)   GDP_growth_qt DSPIC_change_qt          UNRATE 
-##    255.71899775     -0.09636945     -0.04884079      0.41274795</code></pre>
-<pre class="r"><code>summary(PredictiveModel)</code></pre>
-<pre><code>## 
-## Call:
-## lm(formula = D_seats ~ GDP_growth_qt + DSPIC_change_qt + UNRATE, 
-##     data = economy_model_data)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -59.797 -23.288   1.406  19.366  51.703 
-## 
-## Coefficients:
-##                  Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)     255.71900   21.71496  11.776 3.81e-12 ***
-## GDP_growth_qt    -0.09637    0.03885  -2.481   0.0196 *  
-## DSPIC_change_qt  -0.04884    0.01800  -2.714   0.0114 *  
-## UNRATE            0.41275    3.49709   0.118   0.9069    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 29.18 on 27 degrees of freedom
-## Multiple R-squared:  0.224,  Adjusted R-squared:  0.1378 
-## F-statistic: 2.599 on 3 and 27 DF,  p-value: 0.07283</code></pre>
-<pre class="r"><code>National_prediction &lt;- data.frame()
-
-data_mod &lt;- data.frame(Predicted = predict(PredictiveModel, new_data = National_prediction),  # Create data for ggplot2 
-                       Observed = economy_model_data$D_seats)
-
-ggplot(data_mod,                                  
-       aes(x = Predicted,
-           y = Observed)) +
-  geom_point() + 
-  geom_abline(intercept = 0,
-              slope = 1,
-              color = &quot;red&quot;,
-              size = 2) +
- geom_label(label= economy_model_data$year, nudge_y = 5) + theme_janet() + ggtitle(&quot;Predictive Model 1:\nPredicted v. Observed Democrat Seats&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Observations
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Dependent variable
+</td>
+<td style="text-align:right;">
+D_seats
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Type
+</td>
+<td style="text-align:right;">
+OLS linear regression
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+F(3,27)
+</td>
+<td style="text-align:right;">
+2.60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+R²
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Adj. R²
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Est.
+</th>
+<th style="text-align:right;">
+S.E.
+</th>
+<th style="text-align:right;">
+t val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+255.72
+</td>
+<td style="text-align:right;">
+21.71
+</td>
+<td style="text-align:right;">
+11.78
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+GDP_growth_qt
+</td>
+<td style="text-align:right;">
+-0.10
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-2.48
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+DSPIC_change_qt
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-2.71
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+UNRATE
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+3.50
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS
+</td>
+</tr>
+</tfoot>
+</table>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/plot%20for%20prediction-1.png" width="672" /></p>
+</div>
