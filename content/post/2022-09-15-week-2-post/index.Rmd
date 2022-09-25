@@ -89,9 +89,9 @@ economy_model_data <-economy_model_data %>%
 
 ```{r GDP modeling, echo=FALSE}
 
-GDP_model <- lm(H_incumbent_party_majorvote_pct ~ GDP_growth_qt, data = economy_model_data)
+GDP_model <- lm(R_seats ~ GDP_growth_qt, data = economy_model_data)
 coef(GDP_model)
-summ(GDP_model)
+summary(GDP_model)
 ```
 <br> 
 
@@ -147,11 +147,11 @@ theme_janet <- function(base_size = 13, base_family = "") {
 My next model will hopefully give us a more comprehensive picture of what the relationship between the economy and an incumbent party's share of the popular vote given any election year. I will then also use this model and our state model to make a prediction for the 2022 Midterm Election. 
 
 ```{r, echo  = FALSE}
-fullmodel = lm(H_incumbent_party_majorvote_pct ~ 1+ GDP_growth_qt + DSPIC_change_qt + UNRATE , data = economy_model_data)
+fullmodel = lm(R_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE , data = economy_model_data)
 
 fullmodel
 
-summ(fullmodel)
+summary(fullmodel)
 
 National_prediction <- data.frame()
 
@@ -171,7 +171,7 @@ One factor to note though is that unemployment has a relatively high coefficient
 
 ```{r, echo=FALSE}
 data_mod <- data.frame(Predicted = predict(fullmodel, new_data = National_prediction),  # Create data for ggplot2 
-                       Observed = economy_model_data$H_incumbent_party_majorvote_pct)
+                       Observed = economy_model_data$R_seats)
 
 ggplot(data_mod,                                  
        aes(x = Predicted,
@@ -216,6 +216,7 @@ local_model <- lm(RepVotesMajorPercent ~ Unemployed_prct, data = local_data)
 
 local_model
 
+summary(local_model)
 
 
 

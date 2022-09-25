@@ -1,0 +1,44 @@
+---
+title: 'Week 3: Polling and Elections'
+author: Janet Hernandez
+date: '2022-09-22'
+slug: []
+categories:
+  - Polling
+  - Elections
+  - Approval
+tags:
+  - Prediction
+summary: This week, I will try to use polling data to add onto my predictive model.
+---
+
+**Building Our Predictive Model So Far**
+
+To clarify from my previous posts where I didn't clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends.However, the residual standard error is 28.94 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values. 
+
+```{r}
+
+PredictiveModel <- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE, data = economy_model_data)
+
+coefficients(PredictiveModel)
+
+summary(PredictiveModel)
+
+National_prediction <- data.frame()
+
+data_mod <- data.frame(Predicted = predict(PredictiveModel, new_data = National_prediction),  # Create data for ggplot2 
+                       Observed = economy_model_data$D_seats)
+
+ggplot(data_mod,                                  
+       aes(x = Predicted,
+           y = Observed)) +
+  geom_point() + 
+  geom_abline(intercept = 0,
+              slope = 1,
+              color = "red",
+              size = 2) +
+ geom_label(label= economy_model_data$year, nudge_y = 5) + theme_janet() + ggtitle("Predictive Model 1:\nPredicted v. Observed Democrat Seats")
+
+
+```
+

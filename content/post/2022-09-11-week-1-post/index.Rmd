@@ -173,11 +173,6 @@ Next, I will be analyzing the vote share margins by state and congressional dist
 
 
 
-```{r echo=FALSE}
-
-```
-
-
 **Initial Prediction **
 
 My initial prediction for the midterm election is that Republicans will once again regain control of the House of Representatives. Well known "swing states" will likely swing back from blue to red in this upcoming election. I believe that right now though, my opinion is quite uninformed as this is just speculation. I expect that as the weeks go on and I am able to match data to my assumptions that I may be swayed in opinion. Currently my week 1 estimate: 
