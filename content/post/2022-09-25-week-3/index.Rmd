@@ -1,0 +1,9 @@
+---
+title: 'Week 3 '
+author: Janet Hernandez
+date: '2022-09-25'
+slug: []
+categories: []
+tags:
+  - Prediction
+---
