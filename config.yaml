@@ -2,3 +2,8 @@ theme: "tale-hugo"
 baseURL: http://example.org/
 languageCode: en-us
 title: Election Blog for Gov1347
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
