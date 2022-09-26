@@ -18,6 +18,7 @@ library(htmlwidgets)
 library(reactable)
 library(ggplot2)
 library(ggrepel)
+library(lubridate)
 ```
 
 ```{r, include=FALSE}
@@ -97,12 +98,12 @@ For this reason, when building and assessing a model this week, I will try to we
 
 # My Predictive Model So Far #
 
-To clarify from my previous posts where I didn't clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends. However, the residual standard error is 29.18 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values. 
+To clarify from my previous posts where I didn't clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 52% of the variance can be explained by these trends. However, the residual standard error is 29.18 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values. 
 
 
 ```{r, echo=FALSE}
 
-PredictiveModel <- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE, data = economy_model_data)
+PredictiveModel <- lm(D_seats ~  GDP_growth_qt + DSPIC_qt + UNRATE, data = economy_model_data)
 
 summ(PredictiveModel)
 
@@ -126,16 +127,15 @@ ggplot(data_mod,
               size = 2) +
  geom_label_repel(label= economy_model_data$year, nudge_y = 6) + theme_janet() + ggtitle("Predictive Model 1:\nPredicted v. Observed Democrat Seats") 
 ```
-**While the model is not perfect, I am impressed that the 2020 election was almost perfectly predicted as well as 1972 and 1968. However, the most recent election years in the past two decades my model has primarily been over predicting Dem seats. This is clearly seen in years like 2016, 2014, and 2012.**
 
 ```{r, actual prediction for 2022 election}
 
-predict(PredictiveModel, data.frame(GDP_growth_qt = 496.200, DSPIC_change_qt = -929.06
+predict(PredictiveModel, data.frame(GDP_growth_qt = 496.200, DSPIC_qt = 30299.2
 , UNRATE = 3.4))
 
 ```
 
-My current model's prediction *without* polling information is that for the upcoming election, the Dems will win approximately **255** seats in Congress. One thing to note is that I used last quarter's inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.
+My current model's prediction *without* polling information is that for the upcoming election, the Dems will win approximately **215** seats in Congress. One thing to note is that I used last quarter's inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.
 
 # Introduction to Polling #
 
@@ -143,7 +143,19 @@ This week, I will look at how polling data might affect our model. I will be doi
 
 # Economist vs. Five Thirty Eight Prediction Models #
 
-In deciding which method I believe is
+In deciding which method I believe is most useful, I will evaluate their methods based on learning from our readings so far. Therefore, my indicators for a "good" predictive model will have to include accurate weighting of polling based on time left to the election, accountability for bias, and I think it's better to look at local ballots less and generic ballots more since there have been indications that local ballots are often concentrated / can lead to more outliers and errors in our models. 
+
+**Why the Economist Might Be Better**
+
+I think the economist election algorithm / model is closer to what I would use. I think it encompasses all of the fundamentals needed for a good model in addition to relying less on local data and polling for their modelling. This is unlike 538 which incorporates a lot of local polling data. 
+
+The Economist notes: 
+
+> For House elections, the single best indicator is polls—particularly the “generic-ballot” question, which asks Americans which party they want to control Congress. We look at other factors, too. If the party controlling the White House is doing better than expected in special elections, which are contests held between general elections to fill vacant seats, that bodes well for their odds in the midterms. But we also account for the midterm penalty: parties tend to lose votes in the election after they win the White House.
+
+Meanwhile, FiveThirtyEight says that their House models are much less polling based than other bigger races. They place less emphasis on polling and more on what their fundamentals are. I will say, I really like the detail in which 538 explained its methodology and how they correct for pollster bias as well as the timeline adjustment.
+
+
 
 ```{r, include=FALSE}
 # Read in data
@@ -187,11 +199,25 @@ polling_final <- poll_df %>%
 
 polling_new <- left_join(economy_model_data, polling_final, by = c("year"= "election_year"))
 
+recentpolling <- read.csv("~/Downloads/538_generic_poll_2022.csv")
+
+polling_2022 <- recentpolling %>%
+  select(enddate, pollster, grade, adjusted_dem, adjusted_rep)
+
+#Stripping years to make easier
+
+polling_2022$Year <- as.Date(polling_2022$enddate, format = "%m/%d/%y")
+polling_2022$Year <- format(as.Date(polling_2022$Year, format="%d/%m/%Y"),"%Y")
+
+
+
+
+
 ```
 
 # New Model Results #
 ```{r weighted regression with polling, echo=FALSE}
-newmodel <- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE + dem_poll_weighted, data = polling_new)
+newmodel <- lm(D_seats ~  GDP_growth_qt + DSPIC_qt + UNRATE + dem_poll_weighted, data = polling_new)
 summ(newmodel)
 
 prediction2 <- data.frame()
@@ -212,6 +238,18 @@ ggplot(pred2,
 
 ```
 My new model has a much better R^2 when I consider the weighted polling results. It also seems to be a much closer fit to the observed values with few exceptions like 2008. I think this is indicative that weighted polling results close to the election do help us improve our predictions about elections. 
+
+# Final Updated Prediction #
+With this model, it was a bit more difficult to calculate exact number because I used weighted dem polling as one of my variables. For the sake of simplicity, I am chosing to weigh the most recent poll from the a random pollster (in this case, Big Village's 9/9/22 poll result) and using their most recent adjusted dem pct of 45.02683 
+
+```{r new seat prediction}
+
+predict(newmodel, data.frame(GDP_growth_qt = 496.200, DSPIC_qt = 30299.2
+, UNRATE = 3.4, dem_poll_weighted = 45.02683 ))
+
+```
+
+With this data, my model now shows that Democrats can expect to win 218 seats. This is higher than my previous prediction so I can assume polling data I chose / my model favors Democrats with the current polling results. 
 
 
 
