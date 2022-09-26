@@ -10,6 +10,11 @@ summary: This weeks blog post will focus on incorporating polling data to add in
 
 
 
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This week, we focused on seeing how polling might affect and predict election outcomes. <a href="https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/194212?sid=primo#metadata_info_tab_contents">Gelman and King</a> spoke about how polling is really only indicative of people’s preferences close to the election. Over the course of a campaign cycle, Gelman and King argue, responses to pollsters during the campaign are not generally informed or even, in a sense we describe, “rational.”</p>
+<p>For this reason, when building and assessing a model this week, I will try to weigh the polls heavier when they are closer to the election day.</p>
+</div>
 <div id="my-predictive-model-so-far" class="section level1">
 <h1>My Predictive Model So Far</h1>
 <p>To clarify from my previous posts where I didn’t clearly have a section of my model and its predictions formally, I will do that now. I have decided to look at the Democratic seat number as the dependent variable for my model. My previous model combined economy data which I chose to be GDP, disposable income, and unemployment. With this model in my previous post, the R-squared is 0.22. This is relatively good, considering that 20% of the variance can be explained by these trends. However, the residual standard error is 29.18 on 27 degrees of freedom. Below is my a graph of my model that includes my observed vs predicted values.</p>
@@ -172,8 +177,193 @@ UNRATE
 , UNRATE = 3.4))</code></pre>
 <pre><code>##        1 
 ## 254.6798</code></pre>
-<p>My current model’s prediction <em>without</em> polling information is that for the upcoming election, the Dems will win approximately 255 seats in Congress. One thing to note is that I used last quarter’s inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.</p>
+<p>My current model’s prediction <em>without</em> polling information is that for the upcoming election, the Dems will win approximately <strong>255</strong> seats in Congress. One thing to note is that I used last quarter’s inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.</p>
 </div>
 <div id="introduction-to-polling" class="section level1">
 <h1>Introduction to Polling</h1>
+<p>This week, I will look at how polling data might affect our model. I will be doing extension #1, which is discussing differences between the 538 and Economist models and then building my own model again to predict the election with the added variable of polling. I will weigh this as (365 - days until the election).</p>
+</div>
+<div id="economist-vs.-five-thirty-eight-prediction-models" class="section level1">
+<h1>Economist vs. Five Thirty Eight Prediction Models</h1>
+</div>
+<div id="new-model-results" class="section level1">
+<h1>New Model Results</h1>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Observations
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Dependent variable
+</td>
+<td style="text-align:right;">
+D_seats
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Type
+</td>
+<td style="text-align:right;">
+OLS linear regression
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+F(4,26)
+</td>
+<td style="text-align:right;">
+5.79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+R²
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Adj. R²
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Est.
+</th>
+<th style="text-align:right;">
+S.E.
+</th>
+<th style="text-align:right;">
+t val.
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+48.34
+</td>
+<td style="text-align:right;">
+62.21
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+GDP_growth_qt
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+-0.33
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+DSPIC_change_qt
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-0.74
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+UNRATE
+</td>
+<td style="text-align:right;">
+1.24
+</td>
+<td style="text-align:right;">
+2.95
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+dem_poll_weighted
+</td>
+<td style="text-align:right;">
+3.94
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+3.49
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS
+</td>
+</tr>
+</tfoot>
+</table>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/weighted%20regression%20with%20polling-1.png" width="672" />
+My new model has a much better R^2 when I consider the weighted polling results. It also seems to be a much closer fit to the observed values with few exceptions like 2008. I think this is indicative that weighted polling results close to the election do help us improve our predictions about elections.</p>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>Abramowitz, A. (2018). Will Democrats Catch a Wave? The Generic Ballot Model and the 2018 US House Elections. <em>PS: Political Science &amp; Politics, 51</em>(S1), 4-6. <a href="doi:10.1017/S1049096518001567" class="uri">doi:10.1017/S1049096518001567</a></p>
+<p>Bafumi, J., Erikson, R., &amp; Wlezien, C. (2018). Forecasting the 2018 Midterm Election using National Polls and District Information. <em>PS: Political Science &amp; Politics, 51</em>(S1), 7-11. <a href="doi:10.1017/S1049096518001579" class="uri">doi:10.1017/S1049096518001579</a></p>
+<p>Gelman, A., &amp; King, G. (1993). Why Are American Presidential Election Campaign Polls So Variable When Votes Are So Predictable? <em>British Journal of Political Science, 23</em>(4), 409–451. <a href="https://doi.org/10.1017/S0007123400006682" class="uri">https://doi.org/10.1017/S0007123400006682</a></p>
+</div>
 </div>

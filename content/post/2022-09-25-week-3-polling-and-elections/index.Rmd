@@ -89,6 +89,11 @@ theme_janet <- function(base_size = 13, base_family = "") {
     )
 }
 ```
+# Introduction # 
+
+This week, we focused on seeing how polling might affect and predict election outcomes. [Gelman and King](https://www-jstor-org.ezp-prod1.hul.harvard.edu/stable/194212?sid=primo#metadata_info_tab_contents) spoke about how polling is really only indicative of people's preferences close to the election. Over the course of a campaign cycle, Gelman and King argue, responses to pollsters during the campaign are not generally informed or even, in a sense we describe, "rational." 
+
+For this reason, when building and assessing a model this week, I will try to weigh the polls heavier when they are closer to the election day. 
 
 # My Predictive Model So Far #
 
@@ -130,8 +135,90 @@ predict(PredictiveModel, data.frame(GDP_growth_qt = 496.200, DSPIC_change_qt = -
 
 ```
 
-My current model's prediction *without* polling information is that for the upcoming election, the Dems will win approximately 255 seats in Congress. One thing to note is that I used last quarter's inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.
+My current model's prediction *without* polling information is that for the upcoming election, the Dems will win approximately **255** seats in Congress. One thing to note is that I used last quarter's inflation rate because our current DSPIC change was so extreme it resulted in an implausible number, so instead I used Q1 DSPIC change which is more in-line with typical rates as my figure for prediction in the model.
 
 # Introduction to Polling #
 
+This week, I will look at how polling data might affect our model. I will be doing extension #1, which is discussing differences between the 538 and Economist models and then building my own model again to predict the election with the added variable of polling. I will weigh this as (365 - days until the election).
+
+# Economist vs. Five Thirty Eight Prediction Models #
+
+
+```{r, include=FALSE}
+# Read in data
+pollster_ratings <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/pollster-ratings/2020/pollster-ratings.csv")
+poll_df <- read.csv("~/Downloads/GenericPolls1942_2020 (1).csv")
+
+```
+
+```{r clean and add weights, include=FALSE}
+poll_df <- poll_df %>%
+  # Filter out election year and discard polls conducted after election
+  filter(year %% 2 == 0 & year >= 1948) %>%
+  filter(days_until_election > 0, days_until_election < 365) %>%
+  select(pollster, year, emonth, eday, dem, rep, days_until_election) %>%
+  rename(dem_poll = dem, rep_poll = rep) %>%
+  # add weights
+  mutate(recency = 365 - days_until_election)
+
+# add a column that includes the actual seat count in poll? 
+
+
+#nvm found this gonna use this lol 
+
+results <- read.csv("~/Downloads/Gov1374Fall2022CongressionalSeatChanges - Sheet1.csv")
+
+#Combine our results data and then the poll data 
+new <- left_join(poll_df, results, by =c("year"= "ElectionDate"))
+
+
+```
+
+```{r weighted data, include = FALSE}
+polling_final <- poll_df %>%
+  # weighted average
+  group_by(year) %>%
+  summarize(dem_poll_weighted = weighted.mean(dem_poll, recency),
+            rep_poll_weighted = weighted.mean(rep_poll, recency)) %>%
+  rename(election_year = year)
+
+# combine new weighted polling data with my previous dataframe for predictions
+
+polling_new <- left_join(economy_model_data, polling_final, by = c("year"= "election_year"))
+
+```
+
+# New Model Results #
+```{r weighted regression with polling, echo=FALSE}
+newmodel <- lm(D_seats ~  GDP_growth_qt + DSPIC_change_qt + UNRATE + dem_poll_weighted, data = polling_new)
+summ(newmodel)
+
+prediction2 <- data.frame()
+
+pred2 <- data.frame(Predicted = predict(newmodel, new_data = prediction2),  # Create data for ggplot2 
+                       Observed = polling_new$D_seats)
+
+
+ggplot(pred2,                                  
+       aes(x = Predicted,
+           y = Observed))  +
+  geom_point() + 
+  geom_abline(intercept = 0,
+              slope = 1,
+              color = "red",
+              size = 1) +
+ geom_label_repel(label= polling_new$year, nudge_y = 6) + theme_janet() + ggtitle("Predictive Model 2:\nPredicted v. Observed Democrat Seats") 
+
+```
+My new model has a much better R^2 when I consider the weighted polling results. It also seems to be a much closer fit to the observed values with few exceptions like 2008. I think this is indicative that weighted polling results close to the election do help us improve our predictions about elections. 
+
+
+
+## References
+Abramowitz, A. (2018). Will Democrats Catch a Wave? The Generic Ballot Model and the 2018 US House Elections. *PS: Political Science & Politics, 51*(S1), 4-6. doi:10.1017/S1049096518001567
+
+Bafumi, J., Erikson, R., & Wlezien, C. (2018). Forecasting the 2018 Midterm Election using National Polls and District Information. *PS: Political Science & Politics, 51*(S1), 7-11. doi:10.1017/S1049096518001579
+
+
+Gelman, A., & King, G. (1993). Why Are American Presidential Election Campaign Polls So Variable When Votes Are So Predictable? *British Journal of Political Science, 23*(4), 409–451. https://doi.org/10.1017/S0007123400006682
 
