@@ -143,6 +143,7 @@ This week, I will look at how polling data might affect our model. I will be doi
 
 # Economist vs. Five Thirty Eight Prediction Models #
 
+In deciding which method I believe is
 
 ```{r, include=FALSE}
 # Read in data
@@ -206,7 +207,7 @@ ggplot(pred2,
   geom_abline(intercept = 0,
               slope = 1,
               color = "red",
-              size = 1) +
+              size = 2) +
  geom_label_repel(label= polling_new$year, nudge_y = 6) + theme_janet() + ggtitle("Predictive Model 2:\nPredicted v. Observed Democrat Seats") 
 
 ```
