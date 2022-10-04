@@ -1,0 +1,106 @@
+---
+title: 'Week 4: Incumbency'
+author: Janet Hernandez
+date: '2022-10-02'
+summary: In this blog post, I will evaluate my existing model with the inclusion of incumbency and expert rating data. I will also include a model to visualize how expert ratings compare to actual vote share outcomes in a particular given year.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(scales)
+library(plotly)
+library(rjson)
+library(jtools)
+library(htmlwidgets)
+library(reactable)
+library(ggplot2)
+library(ggrepel)
+library(lubridate)
+library(sf)
+library(usmap)
+
+states_map <- usmap::us_map()
+unique(states_map$abbr)
+
+incumbentslist <- read.csv("~/Desktop/incumb_dist_1948-2020 (3).csv")
+dist_polls_2018.2022 <- read.csv("~/Desktop/dist_polls_2018-2022.csv")
+
+
+```
+# Expert Ratings #
+
+In my previous blogs, I have focused solely at national variables and conditions which may affect our election outcomes. Things like GDP, unemployment, polling, etc. are very helpful tools but we also have the option to look at elections from a much closer, district level approach. On the district level, many experts watch and weigh in on important races. Organizations such as Cook Political Report and Sabato's Crystal Ball take into account local conditions and determine ratings on an individual district level basis. These ratings are usually considerably accurate, with over 96% of House of Representative elections being accurately predicted between 1998 and 2016 (Silver, 2022). In this blog post, I will evaluate my existing model with the inclusion of incumbency and expert rating data. I will also create another model to visualize actual vote share to various expert predictions for a particular year, I will chose 2018. 
+
+
+```{r  shapefile for 114th Congress, eval = FALSE, include = FALSE}
+require(sf)
+
+# load geographic data
+get_congress_map <- function(cong=114) {
+tmp_file <- tempfile()
+tmp_dir <- tempdir()
+zp <- sprintf("https://cdmaps.polisci.ucla.edu/shp/districts114.zip",cong)
+download.file(zp, tmp_file)
+unzip(zipfile = tmp_file, exdir = tmp_dir)
+fpath <- paste(tmp_dir, sprintf("districtShapes/districts114.shp",cong), sep = "/")
+st_read(fpath)
+}
+
+# load 114th congress
+
+cd114 <- get_congress_map(114)
+
+#Load data just for year 2018 
+house_party_vote_share_by_district <- read_csv("~/Desktop/Syllabi for Fall 22/election analytics/Gov1347 Data/house party vote share by district 1948-2020.csv") %>%
+  filter(raceYear == 2018) %>%
+  select(State, raceYear, Area, RepVotesMajorPercent, DemVotesMajorPercent, st_fips, state_abb, CD, district_num, district_id, WinnerParty )
+
+# Change from at large states w only one district to a code-able suffix
+house_party_vote_share_by_district$CD[grep(pattern = "-AL", x = house_party_vote_share_by_district$CD)] <- c("AK-01","DE-01","MT-01","ND-01","SD-01", "VT-01","WY-01")
+
+#Cleaned 2018 data from Ethan  
+ratings_share_2018 <- read.csv("~/Desktop/Gov1347 Data/Gov1347 Projects/Gov1347-Blog/2018_ratings.csv")
+
+
+
+house_party_vote_share_by_district <- house_party_vote_share_by_district %>%  
+  inner_join(ratings_share_2018, by = "CD") %>%
+  rename(DISTRICT = district_num, STATENAME = State) %>%
+  mutate(DISTRICT = as.character(DISTRICT),
+         diff = avg_margin - RepVotesMajorPercent)
+cd114 <- cd114 %>% left_join(house_party_vote_share_by_district, by=c("DISTRICT", "STATENAME"))
+
+districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)
+
+actualshare <- ggplot() + 
+geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", size = 0.05) + 
+ scale_fill_gradient2(low = "red", 
+                       mid = "white", 
+                       high = "blue", 
+                       midpoint = 50,
+                       name = "Democratic Vote Share") +
+  coord_sf(xlim = c(-124.43, -66.57), ylim = c(23, 49), expand = FALSE) +  
+  theme_janet() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        plot.title = element_text(margin = margin(0,0,10,0), hjust = 0.5)) +
+  labs(fill = "Dem Two-Party Vote Share", title = "Actual 2018 Democratic Vote Share by District")
+
+ggplotly(actualshare)
+
+```
+
+# Visualizing Vote Share Outcomes with Expert Predictions #
+## District Level Predictions Map ##
+
+```{r extension 1, echo = FALSE}
+#Goal: make map on district level to show expert predictions vs actual vote share 
+
+
+```
+

@@ -6,7 +6,6 @@ slug: []
 categories: []
 tags: []
 ---
-**Blog Post Due 9/15/22 **
 
 *This is my first weekly election blog posting for an ongoing assignment for the class Election Analytics at Harvard College with Professor Ryan Enos. Enjoy! :)*
 
@@ -47,6 +46,7 @@ cd114 <- get_congress_map(114)
 **For my analysis, I'm picking the year 2016 since it is the most recent midterm year from the 114th Congress.** 
 
 Also, I am using a custom theme that replicates 538 theme that I found on GitHub. The source is linked at: https://github.com/alex23lemm/theme_fivethirtyeight/blob/master/theme_fivethirtyeight.R
+
 ```{r include = FALSE}
 library(grid)
 
@@ -157,7 +157,7 @@ unique(states_map$abbr)
 
 ```
 
-```{r echo = FALSE}
+```{r, echo= FALSE}
 
 plot_usmap(data = R_2016, regions = "states", values = "R_votemargin_st", labels = TRUE) +
 scale_fill_gradient(low = "white", high = "red", name = "GOP two-party voteshare margin") + labs (title = "Republican Vote Share Margin in 2016") +
@@ -165,11 +165,19 @@ theme_janet()
 
 
 plot_usmap(data = R_2016, regions = "states", values = "D_votemargin_st", labels = TRUE) + 
-scale_fill_gradient(low = "white", high = "blue", name = "Democratic two-party voteshare margin in 2016") + labs (title = "Republican Vote Share Margin in 2016") +
+scale_fill_gradient(low = "white", high = "blue", name = "Democratic two-party voteshare margin in 2016") + labs (title = "Democratic Vote Share Margin in 2016") +
 theme_janet()
+
 ```
 
 Next, I will be analyzing the vote share margins by state and congressional district in 2014.
+
+
+```{r, include=TRUE, eval=FALSE}
+# plot with simplify
+districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)
+
+```
 
 
 
@@ -177,5 +185,6 @@ Next, I will be analyzing the vote share margins by state and congressional dist
 
 My initial prediction for the midterm election is that Republicans will once again regain control of the House of Representatives. Well known "swing states" will likely swing back from blue to red in this upcoming election. I believe that right now though, my opinion is quite uninformed as this is just speculation. I expect that as the weeks go on and I am able to match data to my assumptions that I may be swayed in opinion. Currently my week 1 estimate: 
 
-HOR:Republicans with a slight majority at 225 seats and Democrats with the remaining 210
+HOR: Republicans with a slight majority at 225 seats and Democrats with the remaining 210
+
 Senate: A slight advantage for the Democrats with 52 Democratic seats while the remaining 48 go to Republicans.

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prediction on Election Blog for Gov1347</title>
+    <link>http://example.org/tags/prediction/</link>
+    <description>Recent content in Prediction on Election Blog for Gov1347</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 25 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/tags/prediction/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Week 3: Polling and Elections</title>
+      <link>http://example.org/post/2022-09-25-week-3-polling-and-elections/</link>
+      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/2022-09-25-week-3-polling-and-elections/</guid>
+      <description>This weeks blog post will focus on incorporating polling data to add into my existing predictive model that already includes economy variables to test to see how our predictions improve.</description>
+    </item>
+    
+    <item>
+      <title>Week 2: The Economy and Elections</title>
+      <link>http://example.org/post/2022-09-15-week-2-post/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/2022-09-15-week-2-post/</guid>
+      <description>This weeks blog post will focus on using the economy as a variable to predictive modeling for the upcoming election using past data such as the unemployment rate, GDP for each quarter, RDI, etc.</description>
+    </item>
+    
+  </channel>
+</rss>

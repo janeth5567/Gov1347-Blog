@@ -3,16 +3,35 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://example.org/</loc>
-    <lastmod>2022-09-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-10-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://example.org/post/</loc>
-    <lastmod>2022-09-11T00:00:00+00:00</lastmod>
+    <lastmod>2022-10-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/post/2022-10-02-week-4-incumbancy/</loc>
+    <lastmod>2022-10-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/tags/prediction/</loc>
+    <lastmod>2022-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/tags/</loc>
+    <lastmod>2022-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/post/2022-09-25-week-3-polling-and-elections/</loc>
+    <lastmod>2022-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/tags/economy/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/tags/unemployment/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://example.org/post/2022-09-15-week-2-post/</loc>
+    <lastmod>2022-09-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://example.org/post/2022-09-11-week-1-post/</loc>
     <lastmod>2022-09-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://example.org/categories/</loc>
-  </url><url>
-    <loc>http://example.org/tags/</loc>
   </url>
 </urlset>

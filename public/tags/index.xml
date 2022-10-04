@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on My New Hugo Site</title>
+    <title>Tags on Election Blog for Gov1347</title>
     <link>http://example.org/tags/</link>
-    <description>Recent content in Tags on My New Hugo Site</description>
+    <description>Recent content in Tags on Election Blog for Gov1347</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 25 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Prediction</title>
+      <link>http://example.org/tags/prediction/</link>
+      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/prediction/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Economy</title>
+      <link>http://example.org/tags/economy/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/economy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unemployment</title>
+      <link>http://example.org/tags/unemployment/</link>
+      <pubDate>Sat, 17 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/tags/unemployment/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
