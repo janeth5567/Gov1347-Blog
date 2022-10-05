@@ -93,7 +93,7 @@ geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", 
         plot.title = element_text(margin = margin(0,0,10,0), hjust = 0.5)) +
   labs(fill = "Dem Two-Party Vote Share", title = "Actual 2018 Democratic Vote Share by District")
 
-
+ggplotly(actualshare)
 ```
 
 # Visualizing Vote Share Outcomes with Expert Predictions #
