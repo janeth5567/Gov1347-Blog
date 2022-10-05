@@ -7,6 +7,8 @@ summary: In this blog post, I will evaluate my existing model with the inclusion
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE)
+
 library(tidyverse)
 library(scales)
 library(plotly)
@@ -33,7 +35,7 @@ dist_polls_2018.2022 <- read.csv("~/Desktop/dist_polls_2018-2022.csv")
 In my previous blogs, I have focused solely at national variables and conditions which may affect our election outcomes. Things like GDP, unemployment, polling, etc. are very helpful tools but we also have the option to look at elections from a much closer, district level approach. On the district level, many experts watch and weigh in on important races. Organizations such as Cook Political Report and Sabato's Crystal Ball take into account local conditions and determine ratings on an individual district level basis. These ratings are usually considerably accurate, with over 96% of House of Representative elections being accurately predicted between 1998 and 2016 (Silver, 2022). In this blog post, I will evaluate my existing model with the inclusion of incumbency and expert rating data. I will also create another model to visualize actual vote share to various expert predictions for a particular year, I will chose 2018. 
 
 
-```{r  shapefile for 114th Congress, eval = FALSE, include = FALSE}
+```{r  shapefile for 114th Congress, eval = FALSE, echo = FALSE}
 require(sf)
 
 # load geographic data
@@ -60,9 +62,7 @@ house_party_vote_share_by_district <- read_csv("~/Desktop/Syllabi for Fall 22/el
 house_party_vote_share_by_district$CD[grep(pattern = "-AL", x = house_party_vote_share_by_district$CD)] <- c("AK-01","DE-01","MT-01","ND-01","SD-01", "VT-01","WY-01")
 
 #Cleaned 2018 data from Ethan  
-ratings_share_2018 <- read.csv("~/Desktop/Gov1347 Data/Gov1347 Projects/Gov1347-Blog/2018_ratings.csv")
-
-
+ratings_share_2018 <-read.csv("~/Desktop/2018_ratings.csv")
 
 house_party_vote_share_by_district <- house_party_vote_share_by_district %>%  
   inner_join(ratings_share_2018, by = "CD") %>%
@@ -73,6 +73,8 @@ cd114 <- cd114 %>% left_join(house_party_vote_share_by_district, by=c("DISTRICT"
 
 districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)
 
+
+#Plot 
 actualshare <- ggplot() + 
 geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", size = 0.05) + 
  scale_fill_gradient2(low = "red", 
@@ -91,16 +93,12 @@ geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", 
         plot.title = element_text(margin = margin(0,0,10,0), hjust = 0.5)) +
   labs(fill = "Dem Two-Party Vote Share", title = "Actual 2018 Democratic Vote Share by District")
 
-ggplotly(actualshare)
 
 ```
 
 # Visualizing Vote Share Outcomes with Expert Predictions #
 ## District Level Predictions Map ##
 
-```{r extension 1, echo = FALSE}
-#Goal: make map on district level to show expert predictions vs actual vote share 
 
 
-```
 
