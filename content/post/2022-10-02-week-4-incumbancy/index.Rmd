@@ -30,6 +30,50 @@ dist_polls_2018.2022 <- read.csv("~/Desktop/dist_polls_2018-2022.csv")
 
 
 ```
+
+```{r theme janet}
+theme_janet <- function(base_size = 13, base_family = "") {
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      
+      # Base elements which are not used directly but inherited by others
+      line =              element_line(colour = '#DADADA', size = 0.75, 
+                                       linetype = 1, lineend = "butt"),
+      rect =              element_rect(fill = "#F0F0F0", colour = "#F0F0F0", 
+                                       size = 0.5, linetype = 1),
+      text =              element_text(family = base_family, face = "plain",
+                                       colour = "#656565", size = base_size,
+                                       hjust = 0.5, vjust = 0.5, angle = 0, 
+                                       lineheight = 0.9),
+      
+      # Modified inheritance structure of text element
+      plot.title =        element_text(size = rel(1.5), family = '' , 
+                                       face = 'bold', hjust = -0.05, 
+                                       vjust = 1.5, colour = '#3B3B3B'),
+      axis.title.x =      element_text(),
+      axis.title.y =      element_text(),
+      axis.text =         element_text(),
+      
+      # Modified inheritance structure of line element
+      axis.ticks =        element_line(),
+      panel.grid.major =  element_line(),
+      panel.grid.minor =  element_blank(),
+      
+      # Modified inheritance structure of rect element
+      plot.background =   element_rect(),
+      panel.background =  element_rect(),
+      legend.key =        element_rect(colour = '#DADADA'),
+      
+      # Modifiying legend.position
+      legend.position = 'none',
+      
+      complete = TRUE
+    )
+}
+
+```
+
+
 # Expert Ratings #
 
 In my previous blogs, I have focused solely at national variables and conditions which may affect our election outcomes. Things like GDP, unemployment, polling, etc. are very helpful tools but we also have the option to look at elections from a much closer, district level approach. On the district level, many experts watch and weigh in on important races. Organizations such as Cook Political Report and Sabato's Crystal Ball take into account local conditions and determine ratings on an individual district level basis. These ratings are usually considerably accurate, with over 96% of House of Representative elections being accurately predicted between 1998 and 2016 (Silver, 2022). In this blog post, I will evaluate my existing model with the inclusion of incumbency and expert rating data. I will also create another model to visualize actual vote share to various expert predictions for a particular year, I will chose 2018. 
@@ -74,6 +118,7 @@ cd114 <- cd114 %>% left_join(house_party_vote_share_by_district, by=c("DISTRICT"
 districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)
 
 
+
 #Plot 
 actualshare <- ggplot() + 
 geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", size = 0.05) + 
@@ -82,8 +127,8 @@ geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", 
                        high = "blue", 
                        midpoint = 50,
                        name = "Democratic Vote Share") +
-  coord_sf(xlim = c(-124.43, -66.57), ylim = c(23, 49), expand = FALSE) +  
-  theme_classic() +
+  coord_sf(xlim = c(-124.43, -66.57), ylim = c(23, 52), expand = FALSE) +  
+  theme_janet() +
   theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank(),
@@ -93,12 +138,13 @@ geom_sf(data= districts_simp,aes(fill= DemVotesMajorPercent), color = "grey60", 
         plot.title = element_text(margin = margin(0,0,10,0), hjust = 0.5)) +
   labs(fill = "Dem Two-Party Vote Share", title = "Actual 2018 Democratic Vote Share by District")
 
-ggplotly(actualshare)
+actualshare
+
+
 ```
 
 # Visualizing Vote Share Outcomes with Expert Predictions #
 ## District Level Predictions Map ##
-
 
 
 
