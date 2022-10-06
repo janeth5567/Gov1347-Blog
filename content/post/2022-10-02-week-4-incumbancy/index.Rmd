@@ -251,7 +251,7 @@ data_mod <- data.frame(Predicted = predict(incumbency_model, new_data = incumben
 
 
 ```{r}
-ggplot(data_mod,                                  
+Model <- ggplot(data_mod,                                  
        aes(x = Predicted,
            y = Observed))  +
   geom_point() + 
@@ -260,6 +260,9 @@ ggplot(data_mod,
               color = "red",
               size = 2) +
  geom_label_repel(label= economy_model_data$year, nudge_y = 6) + theme_janet() + ggtitle("Predictive Model 1:\nPredicted v. Observed Democrat Seats") 
+
+
+ggplotly(Model)
 ```
 
 
