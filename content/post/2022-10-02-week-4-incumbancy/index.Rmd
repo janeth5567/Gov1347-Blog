@@ -174,7 +174,7 @@ ggplotly(actualshare)
 
 This is for blog extension 1. I will evaluate the accuracy of the expert predictions to the actual results by subtracting the difference between the average margin and the actual margin. 
 
-```{r}
+```{r, message=FALSE, show_col_types = FALSE}
 
 actualmargin <- ggplot() + 
 geom_sf(data= districts_simp,aes(fill= diff), color = "grey60", size = 0.05) + 
