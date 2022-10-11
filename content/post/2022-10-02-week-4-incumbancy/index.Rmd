@@ -249,7 +249,6 @@ incumbency_prediction <- data.frame()
 data_mod <- data.frame(Predicted = predict(incumbency_model, new_data = incumbency_prediction),  
                        Observed = economy_model_data$D_seats)
 
-
 ```
 
 

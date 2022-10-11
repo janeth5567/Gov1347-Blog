@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Election Blog for Gov1347</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Week 5: Ad Spending and Elections</title>
+      <link>http://example.org/post/2022-10-10-week-5-ad-spending-and-elections/</link>
+      <pubDate>Mon, 10 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/post/2022-10-10-week-5-ad-spending-and-elections/</guid>
+      <description>This week, I look at how campaign ad spending has an effect on my existing models. I will specifically look at FEC election data and see if I can find a strong indicator of prediction for my model this week using ad data.</description>
+    </item>
+    
     <item>
       <title>Week 4: Incumbency</title>
       <link>http://example.org/post/2022-10-02-week-4-incumbancy/</link>

@@ -2,11 +2,6 @@
 title: 'Week 5: Ad Spending and Elections'
 author: "Janet Hernandez"
 date: "2022-10-10"
-output:
-  html_document:
-    df_print: paged
-  pdf_document: default
-  word_document: default
 categories: []
 tags: []
 summary: This week, I look at how campaign ad spending has an effect on my existing
