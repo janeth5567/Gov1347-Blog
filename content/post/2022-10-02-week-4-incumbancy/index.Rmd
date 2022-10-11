@@ -39,6 +39,7 @@ economy <- read.csv("~/Desktop/Gov1347 Data/Gov1347 Projects/Section data 2/GDP_
 popvote_df <- read.csv("~/Desktop/Gov1347 Data/Gov1347 Projects/Section data 2/house_popvote_seats.csv")
 unemployment_national_quarterly_final <- read.csv("~/Desktop/Gov1347 Data/Gov1347 Projects/Section data 2/unemployment_national_quarterly_final.csv")
 
+
 economy_q2 <- economy %>% 
   filter(quarter_yr == 2) 
 
@@ -222,7 +223,7 @@ Adding incumbency only improved my model's r-squared by 0.02, and there isn't mu
 incumbentslist$district_id <- sub("(\\D)(\\d)", "\\1-\\2", incumbentslist$district_id)
 incumbentslist <- incumbentslist %>% 
   filter(year == 2018)
-incumbentslist$district_id[grep(pattern = "-00", x = incumbentslist$district_id)] <- c("AK-01","DE-01","MT-01","ND-01","SD-01", "VT-01","WY-01")
+
 
 # add binary 0 or 1 variable for incumbent or not 
 
