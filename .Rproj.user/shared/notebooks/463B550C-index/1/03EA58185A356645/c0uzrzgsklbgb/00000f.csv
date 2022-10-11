@@ -1,0 +1,4 @@
+"0","# Read in data"
+"0","pollster_ratings <- read.csv(""https://raw.githubusercontent.com/fivethirtyeight/data/master/pollster-ratings/2020/pollster-ratings.csv"")"
+"0","poll_df <- read.csv(""~/Downloads/GenericPolls1942_2020 (1).csv"")"
+"0",""

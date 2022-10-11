@@ -1,0 +1,6 @@
+"0",""
+"0",""
+"0","plot_usmap(data = R_2016, regions = ""states"", values = ""D_votemargin_st"", labels = TRUE) + "
+"0","scale_fill_gradient(low = ""white"", high = ""blue"", name = ""Democratic two-party voteshare margin in 2016"") + labs (title = ""Democratic Vote Share Margin in 2016"") +"
+"0","theme_janet()"
+"0",""

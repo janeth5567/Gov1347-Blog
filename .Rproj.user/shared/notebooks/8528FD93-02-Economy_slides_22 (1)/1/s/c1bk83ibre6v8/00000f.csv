@@ -1,0 +1,6 @@
+"0","hist(outsamp_errors,"
+"0","     xlab = """","
+"0","     main = ""mean out-of-sample residual\n(1000 runs of cross-validation)"")"
+"2","Error in hist(outsamp_errors, xlab = """", main = ""mean out-of-sample residual\n(1000 runs of cross-validation)"") : 
+  object 'outsamp_errors' not found
+"

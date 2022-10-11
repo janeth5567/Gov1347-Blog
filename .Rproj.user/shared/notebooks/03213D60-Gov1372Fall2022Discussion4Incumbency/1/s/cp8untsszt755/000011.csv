@@ -1,0 +1,5 @@
+"0","print('lm(y~x1+x2) #(do 50 times, once for each state)')"
+"1","[1]"
+"1"," ""lm(y~x1+x2) #(do 50 times, once for each state)"""
+"1","
+"

@@ -1,0 +1,17 @@
+"0","ggplot(forecast.dat,aes(x= IncCongressGenericAdvantage, y = IncCongressVoteAdvantage, label = ElectionDate)) +
+  geom_vline(xintercept = 0, alpha = .3,color = '#D22B2B')+
+  geom_hline(yintercept = 0, alpha = .3,color = '#D22B2B')+
+  geom_smooth(method = ""lm"", se = TRUE, alpha = .25,size = 2) +
+  geom_point() +
+  geom_text_repel(aes(colour = factor(midterm)))+
+  labs(title = ""Descriptive Relationship Between House Generic Ballot Advantage and \n House Nationwide Two-Party Vote Advantage (1960-2020)"",
+        x = ""Majority Party Generic Ballot Advantage (Percentage Points)"",
+       y = ""Majoirty Party Two-Party Vote Advantage (Percentage Points)"",
+       caption = ""Generic Ballot = Final 7-day average, Midterm years in black"") +
+  scale_color_manual(values=c(""darkgrey"",""black"")) +
+  #scale_y_continuous(breaks = seq(-60, 40, by = 10)) +
+  theme(legend.position = ""none"")
+"
+"2","Error in FUN(X[[i]], ...) : 
+  object 'IncCongressGenericAdvantage' not found
+"

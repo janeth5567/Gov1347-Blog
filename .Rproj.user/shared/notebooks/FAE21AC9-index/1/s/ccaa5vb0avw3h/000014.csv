@@ -1,0 +1,8 @@
+"0","ggplotly(Model)
+"
+"2","Warning: `gather_()` was deprecated in tidyr 1.2.0.
+Please use `gather()` instead."
+"2","Warning: geom_GeomLabelRepel() has yet to be implemented in plotly.
+  If you'd like to see this geom implemented,
+  Please open an issue with your example code at
+  https://github.com/ropensci/plotly/issues"

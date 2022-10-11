@@ -1,0 +1,4 @@
+"0","# GDP"
+"0","plot(dat2$year, dat2$H_incumbent_party_majorvote_pct, "
+"0","     type=""l"","
+"0","     main=""true Y (line), predicted Y (dot) for each year"")"

@@ -1,0 +1,9 @@
+"0","pred_2020 <- tibble(predictive_variable = c(""GDP"", ""RDI""),
+                    data_2020 = c(economy_model_data_sample$GDP_growth_qt / 100,
+                                  economy_model_data_sample$DSPIC_change_qt.x/ 100)
+                    popvote = c(predict(gdp_model, economy_model_data_sample) / 100, 
+"
+"2","Error: unexpected symbol in:
+""                                  economy_model_data_sample$DSPIC_change_qt.x/ 100)
+                    popvote""
+"

@@ -1,0 +1,7 @@
+"0","# GDP"
+"0","years_outsamp <- sample(dat2$year, 8)"
+"0","mod <- lm(H_incumbent_party_majorvote_pct ~ GDP_growth_pct,"
+"0","          dat2[!(dat2$year %in% years_outsamp),])"
+"0","outsamp_pred <- predict(mod,"
+"0","                newdata = dat2[dat2$year %in% "
+"0","                                 years_outsamp,])"

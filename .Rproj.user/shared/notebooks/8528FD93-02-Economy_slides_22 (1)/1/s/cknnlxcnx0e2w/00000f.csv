@@ -1,0 +1,5 @@
+"0","lm_econ <- lm(H_incumbent_party_majorvote_pct ~ GDP_growth_pct, "
+"0","              data = dat2)"
+"0","# # lm_rdi <- lm(H_incumbent_party_majorvote_pct ~ DSPIC_change_pct, "
+"0","#              data = data2)"
+"0",""

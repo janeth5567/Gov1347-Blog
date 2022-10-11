@@ -1,0 +1,4 @@
+"0","# # RDI"
+"0","# hist(lm_rdi$model$H_incumbent_party_majorvote_pct - "
+"0","#        lm_rdi$fitted.values, "
+"0","#      main=""histogram of true Y - predicted Y"")"

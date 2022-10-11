@@ -1,0 +1,5 @@
+"0","seats.generic = lm(IncCongressSeatPctAdvantage~IncCongressGenericAdvantage+midterm,data = forecast.dat)
+"
+"2","Error in eval(predvars, data, env) : 
+  object 'IncCongressSeatPctAdvantage' not found
+"

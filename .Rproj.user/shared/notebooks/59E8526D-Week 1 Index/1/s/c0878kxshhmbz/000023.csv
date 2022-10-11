@@ -1,0 +1,5 @@
+"0",""
+"0","popvote_wide_df <- popvote_df %>%"
+"0","select(year, winner_party, winning_vote_margin) %>%"
+"0","spread(key = winner_party, value = winning_vote_margin)"
+"0","head(popvote_wide_df, 3)"

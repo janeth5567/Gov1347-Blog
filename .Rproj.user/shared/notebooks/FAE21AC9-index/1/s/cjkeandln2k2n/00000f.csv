@@ -1,0 +1,10 @@
+"0","cd114 <- cd114 %>% left_join(house_party_vote_share_by_district, by=c(""DISTRICT"", ""STATENAME""))
+"
+"1","[1m[33mError[39m in `sf_column %in% names(g)`:[22m
+[38;5;232m[33m![38;5;232m Can't join on `x$DISTRICT` x `y$DISTRICT` because of incompatible types.
+[36mℹ[38;5;232m `x$DISTRICT` is of type <double>>.
+[36mℹ[38;5;232m `y$DISTRICT` is of type <character>>.[39m
+Backtrace:
+[90m 1. [39mcd114 %>% ...
+[90m 7. [39m[1m[94mdplyr:::left_join.data.frame([39m[22m., house_party_vote_share_by_district, by = c(""DISTRICT"", ""STATENAME"")[1m[94m)[39m[22m
+"

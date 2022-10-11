@@ -1,0 +1,3 @@
+"0","# plot with simplify"
+"0","districts_simp <- rmapshaper::ms_simplify(cd114, keep = 0.01)"
+"0",""

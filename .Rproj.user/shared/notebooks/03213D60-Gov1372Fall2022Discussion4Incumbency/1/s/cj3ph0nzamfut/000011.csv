@@ -1,0 +1,5 @@
+"0","print('lm(y~x1+x2) #(do one time)')"
+"1","[1]"
+"1"," ""lm(y~x1+x2) #(do one time)"""
+"1","
+"

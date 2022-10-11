@@ -1,0 +1,6 @@
+"0","h <- read.csv(""~/Desktop/Syllabi for Fall 22/election analytics/Gov1347 Data/house nationwide vote and seat share by party 1948-2020.csv"")"
+"0",""
+"0","popvote_df <- h"
+"0","popvote_df %>%"
+"0","filter(year == 2018) %>%"
+"0","select(D_seats, D_majorvote_pct, winner_party)"

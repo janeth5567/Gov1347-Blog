@@ -1,0 +1,6 @@
+"0","mean(outsamp_pred - dat2$H_incumbent_party_majorvote_pct[dat2$year "
+"0","                                                         %in% years_outsamp])"
+"1","[1]"
+"1"," -0.07194349"
+"1","
+"

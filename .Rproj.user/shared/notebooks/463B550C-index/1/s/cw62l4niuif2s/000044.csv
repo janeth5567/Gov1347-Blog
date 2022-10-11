@@ -1,0 +1,7 @@
+"0","recent <- polling_2022 %>%
+  # weighted average
+  group_by(Year) %>%
+  summarize(adjusted_dem,
+            adjusted_rep)
+"
+"2","`summarise()` has grouped output by 'Year'. You can override using the `.groups` argument."

@@ -1,0 +1,18 @@
+"0","oh_22 <- polls_df %>%
+  filter(st_cd_fips == '3901', year == 2022, party == 'REP')
+
+pred_poll_inc <- predict(mod_poll_inc, oh_22, 
+                          interval = ""prediction"", level=0.95)
+pred_poll_inc
+"
+"1"," "
+"1","      fit"
+"1","      lwr"
+"1","      upr"
+"1","
+1"
+"1"," 52.72655"
+"1"," 51.30364"
+"1"," 54.14946"
+"1","
+"

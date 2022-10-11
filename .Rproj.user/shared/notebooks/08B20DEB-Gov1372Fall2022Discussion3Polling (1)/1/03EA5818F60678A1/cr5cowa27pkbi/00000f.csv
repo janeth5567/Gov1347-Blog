@@ -1,0 +1,15 @@
+"0","stargazer(vote.percent.generic,
+          seats.generic,
+          type = 'html',
+          style = 'apsr',
+          dep.var.labels   = c(""DV = President's Party Two-Party Vote Advantage"",""DV = President's Party PctPoint Seat Advantage""),
+          covariate.labels = c(""President's Party Generic Ballot"", 'Midterm Election'),
+          model.numbers          = FALSE,
+          omit = c('f','rsq'),
+          Note = ""Ordinary least squares regression parameter estimates (with standard errors in parentheses) for President's Party Seat Advantage (1960-2020)"",
+          single.row = T,
+          digits = 2)
+"
+"2","Error in .stargazer.wrap(..., type = type, title = title, style = style,  : 
+  object 'vote.percent.generic' not found
+"

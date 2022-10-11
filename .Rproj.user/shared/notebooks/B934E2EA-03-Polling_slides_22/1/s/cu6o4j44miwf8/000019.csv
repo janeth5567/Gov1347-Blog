@@ -1,0 +1,8 @@
+"0","library(tidyverse)"
+"0","setwd(""~/Downloads/Section data/drive-download-20220922T150729Z-001"")"
+"0","poll_df <- read.csv(""~/Downloads/Section data/drive-download-20220922T150729Z-001/polls_df.csv"") # replace with your own wd() "
+"0","# transform poll date to date class"
+"0","poll_df$poll_date <- mdy(poll_df$poll_date)"
+"0",""
+"0","library(lubridate)"
+"0",""

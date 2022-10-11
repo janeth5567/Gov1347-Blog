@@ -1,0 +1,5 @@
+"0",""
+"0","popvote_wide_df %>%"
+"0","gather(key = ""winner_party"", value = ""winning_vote_margin"","
+"0","D, R) %>%"
+"0","filter(year %in% c(1948, 1952, 1956))"

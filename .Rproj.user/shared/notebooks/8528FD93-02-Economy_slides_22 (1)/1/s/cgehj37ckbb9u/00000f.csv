@@ -1,0 +1,4 @@
+"0","# GDP"
+"0","hist(lm_econ$model$H_incumbent_party_majorvote_pct - "
+"0","       lm_econ$fitted.values, "
+"0","     main=""histogram of true Y - predicted Y"")"
