@@ -2,9 +2,6 @@
 title: 'Week 5: Ad Spending and Elections'
 author: "Janet Hernandez"
 date: "2022-10-10"
-output:
-  html_document:
-    df_print: paged
 tags: []
 summary: This week, I look at how campaign ad spending has an effect on my existing
   models. I will specifically look at FEC election data and see if I can find a strong
@@ -342,7 +339,6 @@ Model <- ggplot(data_mod,
               color = "red",
               size = 2) +
  geom_label(label= data_mod$District) + theme_janet() + ggtitle("Predictive Model 3:\nPredicted v. Observed Democrat Major Vote Percent") 
-
 
 ggplotly(Model)
 
