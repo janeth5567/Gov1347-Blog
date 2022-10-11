@@ -2,12 +2,16 @@
 title: 'Week 5: Ad Spending and Elections'
 author: "Janet Hernandez"
 date: "2022-10-10"
-categories: []
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 tags: []
 summary: This week, I look at how campaign ad spending has an effect on my existing
   models. I will specifically look at FEC election data and see if I can find a strong
   indicator of prediction for my model this week using ad data.
 slug: []
+categories: []
 ---
 
 ```{r setup, include = FALSE}
