@@ -2,10 +2,6 @@
 title: 'Week 5: Ad Spending and Elections'
 author: "Janet Hernandez"
 date: "2022-10-10"
-output:
-  pdf_document: default
-  html_document:
-    df_print: paged
 tags: []
 summary: This week, I look at how campaign ad spending has an effect on my existing
   models. I will specifically look at FEC election data and see if I can find a strong
@@ -344,4 +340,18 @@ ggplotly(Model)
 
 ```
 
+# References #
 
+Bafumi, J., Erikson, R., & Wlezien, C. (2018). Forecasting the 2018 Midterm Election using National Polls and District Information. PS: Political Science & Politics, 51(S1), 7-11. doi:10.1017/S1049096518001579
+
+Ballotpedia. (2018). United States House of Representatives elections, 2018. https://ballotpedia.org/United_States_House_of_Representatives_elections,_2018
+
+Ballotpedia. (2022). United States Congress elections, 2022. https://ballotpedia.org/United_States_Congress_elections,_2022
+
+Congressional candidate data summary tables - FEC.gov. (2022). Retrieved 16 October 2022, from https://www.fec.gov/campaign-finance-data/congressional-candidate-data-summary-tables/?year=2022&segment=18
+
+Cook Political Report. (2022). PVI Map and District List. https://www.cookpolitical.com/cook-pvi/2022-partisan-voting-index/district-map-and-list
+
+Gerber, A.S., Gimpel, J. G., Green, D. P., & Shaw, D. R. (2011). How Large and Long-lasting Are the Persuasive Effects of Televised Campaign Ads? Results from a Randomized Field Experiment. American Political Science Review, 105(1), 135–150. https://doi.org/10.1017/S000305541000047X
+
+Wesleyan Media Project. (2022, October 6). Democrats Out-Pacing GOP in Senate Races. https://mediaproject.wesleyan.edu/releases-100622/

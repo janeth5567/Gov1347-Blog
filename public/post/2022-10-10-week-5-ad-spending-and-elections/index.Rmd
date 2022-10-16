@@ -286,9 +286,6 @@ ggplotly(Actual2022_w5)
 Now I have to add the variable of ad spending on a local level. I've gone ahead and downloaded data from the FEC for 2018 election spending data. This isn't exactly the ad spend per campaign but I am using it as a proxy by making the assumption that the more money a particular race / candidate has overall translates to how much it is spending in ads.
 
 ```{r plots, echo= FALSE}
-
-
-
 w5_local_model <- lm(DemVotesMajorPercent ~ avg + Unemployed_prct + winner_candidate_inc + Receipts, data = local_model_data)
 
 districts_simp$prediction <-head(predict(w5_local_model), n= 436)
@@ -319,8 +316,6 @@ ggplotly(Prediction2022_w5)
 
 
 ```{r predict v expected plot, echo= FALSE}
-
-
 summ(w5_local_model)
 
 w5_model <- data.frame()
@@ -339,6 +334,7 @@ Model <- ggplot(data_mod,
               color = "red",
               size = 2) +
  geom_label(label= data_mod$District) + theme_janet() + ggtitle("Predictive Model 3:\nPredicted v. Observed Democrat Major Vote Percent") 
+
 
 ggplotly(Model)
 
